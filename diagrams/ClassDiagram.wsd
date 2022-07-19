@@ -1,0 +1,105 @@
+@startuml The lord of the rings
+scale 1920*1080
+
+package TheLordOfTheRings {
+    class Game{        
+        - turn: Turn
+        - heroes: Army
+        - beasts: Army
+
+        + main(): void
+        + Game()
+        + play(): void
+    }
+
+    class Turn{
+        - heroes: Army
+        - beasts: Army
+
+        + Turn(Army heroes, Army beasts)
+        + play(): void
+        + printStatistics(): void
+        + getArmy(): Army
+        + getWinner(): Army
+    }
+
+    class Army{
+        - ARMY_SIZE: int
+        - soldiers[]: Player
+        - type: String
+
+        + Army(Player soldiers[], String name)
+        + isAlive(): boolean
+        + setName(String name): void
+        + getName(): String
+        + getSoldier(): Player
+    }
+    
+
+    package Players{
+        abstract Player{
+            - name: String
+            - armourLevel: int
+            - life: int
+
+            + attack(): void
+            + defend(): void
+            + receiveAttack(): void
+        }
+
+        abstract Hero{
+            + createArmy(int size): void
+        }
+
+        abstract Beast{
+            + createArmy(int size): void
+        }
+
+        package Beasts{
+            class Orc
+            class Trasgo
+        }
+
+        package Heroes{
+            class Elfo
+            class Hobbit
+            class Human
+        }
+    }
+
+    package utils{
+        class Dice{
+            - min: int
+            - max: int
+
+            + getDice(): int
+        }
+        class App{
+            - scanner: Scanner
+
+            + executeGame(): void
+        }
+    }
+
+    Game *-down->Turn
+    Game *-down-> Army
+    Turn -> Army
+    Army *-down-> "5" Player
+    Player ...> Dice
+    Turn ...> App
+    Army ...> App
+
+    Player <|-down- Hero
+    Player <|-down- Beast
+
+    Hero <|-down- Elfo
+    Hero <|-down- Hobbit
+    Hero <|-down- Human
+
+    Beast <|-down- Orc
+    Beast <|-down- Trasgo
+}
+
+
+
+@enduml

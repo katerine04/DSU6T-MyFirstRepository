@@ -1,0 +1,44 @@
+@startuml The lord of the rings
+scale 1920*1080
+
+object Game
+object Player
+object Hero
+object Elfo
+object Hobbit
+object Human
+object Beast
+object Orco
+object Trasgo
+object Army
+object Attack
+object Defend
+object Armor
+object Turn
+object Life
+object Goal
+
+Game *-down->Turn
+Game *-down-> Army
+Turn -> Army
+Army *-down-> "5" Player
+
+Player <|-down- Hero
+Player <|-down- Beast
+
+Hero <|-down- Elfo
+Hero <|-down- Hobbit
+Hero <|-down- Human
+
+Beast <|-down- Orco
+Beast <|-down- Trasgo
+
+Army *-down-> Goal
+Player *-left-> Armor
+Player *-right-> Life
+Player ...> Attack
+Attack ...> Defend
+Goal ...> Attack
+Goal ...> Defend
+
+@enduml
